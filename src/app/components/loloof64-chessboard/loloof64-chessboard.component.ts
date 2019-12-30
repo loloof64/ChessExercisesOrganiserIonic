@@ -386,7 +386,7 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
       `position fen ${currentPosition}`
     );
     this.engineCommunicationLayer.postMessage(
-      'go depth 12'
+      'go depth 16'
     );
   }
 

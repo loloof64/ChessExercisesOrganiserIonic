@@ -14,8 +14,8 @@
     <loloof64-chessboard 
       [size]="boardSize"
       [reversed]="false"
-      (gotReady)="hideLoader"
-      (gotBusy)="showLoader"
+      (gotReady)="hideLoader()"
+      (gotBusy)="showLoader()"
       #chessBoard
     ></loloof64-chessboard>
 </ion-content>
