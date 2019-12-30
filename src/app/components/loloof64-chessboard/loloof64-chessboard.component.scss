@@ -1,0 +1,53 @@
+@import './loloof64-chessboard-mixins';
+
+.board-root {
+    display: grid;
+    grid-template: 1fr repeat(8, 2fr) 1fr / 1fr repeat(8, 2fr) 1fr;
+}
+
+.coord {
+    @include standard-cell();
+    color:  rgb(192, 158, 48);
+    font-weight: bold;
+}
+
+.empty-zone {
+    @include standard-cell();
+}
+
+.turn-white {
+    @include standard-cell();
+    border-radius: 100%;
+    background-color: #FFF;
+}
+
+.turn-black {
+    @include standard-cell();
+    border-radius: 100%;
+    background-color: #000;
+}
+
+.click-zone {
+    position: absolute;
+    left: 0;
+    top: 0;
+    touch-action: none;
+}
+
+.dnd-piece {
+    position: absolute;
+}
+
+.cellImage {
+    position: absolute;
+}
+
+.dndGuideLine {
+    position: absolute;
+    background-color: rgb(87, 93, 201);
+}
+
+.lastMoveArrow {
+    position:absolute;
+    background-color: rgb(207, 19, 19);
+}

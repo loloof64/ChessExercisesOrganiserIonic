@@ -52,6 +52,16 @@
  *
  */
 
+import {polyfill} from 'mobile-drag-drop';
+
+polyfill({
+    dragImageSetup: (elt: HTMLElement) => {
+        const copy = (elt.cloneNode()) as HTMLElement;
+        copy.style.opacity = '1.0';
+        return copy;
+    }
+});
+
 import './zone-flags.ts';
 
 /***************************************************************************************************

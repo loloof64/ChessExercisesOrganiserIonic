@@ -110,6 +110,16 @@
                 "glob": "**/*",
                 "input": "src/assets",
                 "output": "/assets"
+              },
+              {
+                "glob": "**/stockfish.*",
+                "input": "node_modules/stockfish.js/",
+                "output": "assets/stockfish-js"
+              },
+              {
+                "glob": "**/stockfish.*",
+                "input": "node_modules/stockfish.wasm/",
+                "output": "assets/stockfish-wasm"
               }
             ]
           },
