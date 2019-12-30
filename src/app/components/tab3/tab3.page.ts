@@ -12,7 +12,9 @@ export class Tab3Page implements AfterViewInit {
   @ViewChild('chessBoard', {static: true}) chessBoard: Loloof64ChessboardComponent;
 
   ngAfterViewInit() {
-    this.chessBoard.startNewGame(PlayerType.Human, PlayerType.Human, undefined);
+    setTimeout(() => {
+      this.chessBoard.startNewGame(PlayerType.Computer, PlayerType.Human, undefined);
+    }, 1200);
   }
 
 }
