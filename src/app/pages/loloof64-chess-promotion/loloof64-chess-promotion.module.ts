@@ -21,6 +21,8 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [Loloof64ChessPromotionPage]
+  entryComponents: [Loloof64ChessPromotionPage],
+  exports: [Loloof64ChessPromotionPage],
+  declarations: [Loloof64ChessPromotionPage],
 })
 export class Loloof64ChessPromotionPageModule {}

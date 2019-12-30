@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 import { Loloof64ChessLogicService, ChessCell } from '../../services/loloof64-chess-logic.service';
 import { ModalController, ToastController } from '@ionic/angular';
 import { Loloof64ChessEngineCommunicationService } from '../../services/loloof64-chess-engine-communication.service';
-import { Loloof64ChessPromotionPage } from '../loloof64-chess-promotion/loloof64-chess-promotion.page';
+import { Loloof64ChessPromotionPage } from '../../pages/loloof64-chess-promotion/loloof64-chess-promotion.page';
 import { PlayerType } from './PlayerType';
 
 interface ChessMove {

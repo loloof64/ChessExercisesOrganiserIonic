@@ -39,7 +39,7 @@ polyfill({
 npm install chess.js
 ```
 
-* Also don't forget to import sources codes required in loloof64-chessboard-component.ts (components and services).
+* Also don't forget to import sources codes required in loloof64-chessboard-component.ts (components, promotion page, and services).
 
 ## Credits
 
