@@ -33,10 +33,10 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
   @ViewChild('dndPiece', {static: false}) dndPiece: ElementRef;
   @ViewChild('horizontalGuide', {static: true}) horizontalGuide: ElementRef;
   @ViewChild('verticalGuide', {static: true}) verticalGuide: ElementRef;
-  @ViewChild('lastMoveBaseLine', {static: true}) lastMoveBaseLine: ElementRef;
-  @ViewChild('lastMoveArrow1', {static: true}) lastMoveArrow1: ElementRef;
-  @ViewChild('lastMoveArrow2', {static: true}) lastMoveArrow2: ElementRef;
-  @ViewChild('lastMovePoint', {static: true}) lastMovePoint: ElementRef;
+  @ViewChild('lastMoveBaseLine', {static: false}) lastMoveBaseLine: ElementRef;
+  @ViewChild('lastMoveArrow1', {static: false}) lastMoveArrow1: ElementRef;
+  @ViewChild('lastMoveArrow2', {static: false}) lastMoveArrow2: ElementRef;
+  @ViewChild('lastMovePoint', {static: false}) lastMovePoint: ElementRef;
   
   private dndHighlightedCell: ChessCell = null;
   private dndHoveringCell: ChessCell = null;

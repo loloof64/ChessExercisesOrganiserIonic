@@ -39,16 +39,10 @@ export class Tab3Page implements  OnInit, DoCheck, AfterViewInit {
   }
 
   hideLoader() {
-    ///////////////////////////////////
-    console.log('Got ready');
-    //////////////////////////////////
     this.boardBusy = false;
   }
 
   showLoader() {
-    ///////////////////////////////////
-    console.log('Got busy');
-    //////////////////////////////////
     this.boardBusy = true;
   }
 
