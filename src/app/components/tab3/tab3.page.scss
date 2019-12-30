@@ -1,1 +1,15 @@
+ion-spinner {
+    position: absolute;
+    left: 25%;
+    top: 25%;
+    width: 50%;
+    height: 50%;
+    z-index: 10;
+}
 
+loloof64-chessboard {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
