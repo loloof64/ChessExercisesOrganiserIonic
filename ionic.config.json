@@ -1,5 +1,7 @@
 {
   "name": "Chess Exercises Organiser Ionic",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }
