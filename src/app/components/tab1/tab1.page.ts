@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-tab1',
@@ -7,6 +8,41 @@ import { Component } from '@angular/core';
 })
 export class Tab1Page {
 
-  constructor() {}
+  sampleExercises = [
+    {
+      title: 'Sample 1',
+      path: '/assets/sample_chess_games/sample_1.pgn',
+    },
+    {
+      title: 'Sample 2',
+      path: '/assets/sample_chess_games/sample_2.pgn',
+    },
+];
+
+  constructor(public http: HttpClient) {}
+
+  loadExercice(exercise) {
+    const path = exercise.path;
+    const that = this;
+    this.http.get(path, {responseType: 'text'}).subscribe({
+      next(content) {
+        that.parseExercise(content);
+      },
+      error(err) {console.error(err);}
+    });
+  }
+
+  parseExercise(exercisePgn) {
+    const lines = exercisePgn.split(/(\r?)\n/g);
+    const fenLines = lines.filter(singleLine => singleLine.startsWith('[FEN'));
+    if (fenLines.length === 0) {
+      console.error('No FEN tag in the pgn !');
+      alert('No FEN tag in the pgn !');
+      return;
+    }
+    const theFenLine = fenLines[0];
+    const result = theFenLine.match(/\[FEN "(.*)"/)[1];
+    return result;
+  }
 
 }

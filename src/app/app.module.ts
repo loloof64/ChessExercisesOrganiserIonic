@@ -9,11 +9,19 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { HttpClientModule } from '@angular/common/http';
+
 import { Loloof64ChessPromotionPageModule } from './pages/loloof64-chess-promotion/loloof64-chess-promotion.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, Loloof64ChessPromotionPageModule,],
+  imports: [
+     BrowserModule,
+     IonicModule.forRoot(),
+     AppRoutingModule, 
+     HttpClientModule,
+     Loloof64ChessPromotionPageModule,
+  ],
   providers: [
     StatusBar,
     SplashScreen,
