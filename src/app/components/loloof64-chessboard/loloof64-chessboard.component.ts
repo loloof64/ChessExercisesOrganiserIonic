@@ -30,7 +30,7 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
 
   @ViewChild('root', {static: true}) root: ElementRef;
   @ViewChild('click_zone', {static: true}) clickZone: ElementRef;
-  @ViewChild('dndPiece', {static: true}) dndPiece: ElementRef;
+  @ViewChild('dndPiece', {static: false}) dndPiece: ElementRef;
   @ViewChild('horizontalGuide', {static: true}) horizontalGuide: ElementRef;
   @ViewChild('verticalGuide', {static: true}) verticalGuide: ElementRef;
   @ViewChild('lastMoveBaseLine', {static: true}) lastMoveBaseLine: ElementRef;
