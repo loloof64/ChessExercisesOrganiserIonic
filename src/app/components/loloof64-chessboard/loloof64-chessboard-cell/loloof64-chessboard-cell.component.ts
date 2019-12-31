@@ -10,8 +10,9 @@ export class Loloof64ChessboardCellComponent implements AfterViewChecked, OnChan
   @Input() file: number;
   @Input() rank: number;
   @Input() value: string;
-  @Input() dndHighlight: boolean;
-  @Input() dndHovering: boolean;
+  @Input() dndStart: boolean;
+  @Input() dndEnd: boolean;
+  @Input() dndIndicator: boolean;
 
   @ViewChild('root', {static: true}) root: ElementRef;
   @ViewChild('pieceImg', {static: true}) pieceImg: ElementRef;
@@ -27,7 +28,7 @@ export class Loloof64ChessboardCellComponent implements AfterViewChecked, OnChan
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    const dndHighlightChanges = changes.dndHighlight;
+    const dndHighlightChanges = changes.dndStart;
     if (dndHighlightChanges !== undefined && this.pieceImg !== undefined) {
       if (dndHighlightChanges.currentValue) {
         this.renderer.setStyle(this.pieceImg.nativeElement, 'opacity', '0.0');
@@ -38,12 +39,16 @@ export class Loloof64ChessboardCellComponent implements AfterViewChecked, OnChan
   }
 
   getCellClass() {
-    if (this.dndHovering) {
+    if (this.dndEnd) {
       return 'dnd-end-cell';
     }
 
-    if (this.dndHighlight) {
+    if (this.dndStart) {
       return 'dnd-start-cell';
+    }
+
+    if (this.dndIndicator) {
+      return 'dnd-indicator-cell';
     }
 
     const whiteCell = (this.file + this.rank) % 2 !== 0;

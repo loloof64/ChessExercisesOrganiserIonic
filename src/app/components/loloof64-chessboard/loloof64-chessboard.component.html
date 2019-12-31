@@ -21,8 +21,9 @@
         [file]="getFile(col)"
         [rank]="getRank(row)"
         [value]="getPieceValue(col, row)"
-        [dndHighlight]="isDndHighlighted(col, row)"
-        [dndHovering]="isDndHoveringCell(col, row)"
+        [dndStart]="isDndStart(col, row)"
+        [dndEnd]="isDndEnd(col, row)"
+        [dndIndicator]="isDndIndicator(col, row)"
       >
       </loloof64-chessboard-cell>
       <div 

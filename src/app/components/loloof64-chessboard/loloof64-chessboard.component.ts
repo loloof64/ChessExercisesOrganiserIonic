@@ -169,18 +169,24 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
     return this.piecesValues[this.getRank(row)][this.getFile(col)];
   }
 
-  isDndHighlighted = (col: number, row: number) => {
+  isDndStart = (col: number, row: number) => {
     if (this.dndHighlightedCell === null) { return false; }
     if (this.dndHighlightedCell.file !== this.getFile(col)) { return false; }
     if (this.dndHighlightedCell.rank !== this.getRank(row)) { return false; }
     return true;
   }
 
-  isDndHoveringCell = (col: number, row: number) => {
+  isDndEnd = (col: number, row: number) => {
     if (this.dndHoveringCell === null) { return false; }
     if (this.dndHoveringCell.file !== this.getFile(col)) { return false; }
     if (this.dndHoveringCell.rank !== this.getRank(row)) { return false; }
     return true;
+  }
+
+  isDndIndicator = (col: number, row: number) => {
+    if (this.dndHoveringCell === null) { return false; }
+    return (this.dndHoveringCell.file === this.getFile(col) && this.dndHoveringCell.rank !== this.getRank(row))
+     || (this.dndHoveringCell.file !== this.getFile(col) && this.dndHoveringCell.rank === this.getRank(row));
   }
 
   dragStart = (event: any) => {

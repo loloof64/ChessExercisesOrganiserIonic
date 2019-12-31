@@ -19,4 +19,9 @@
     @include standard-cell();
     background-color: rgb(87, 93, 201);
 }
+
+.dnd-indicator-cell {
+    @include standard-cell();
+    background-color: rgb(233, 36, 36);
+}
   
