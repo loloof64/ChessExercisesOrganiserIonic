@@ -27,6 +27,7 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
 
   @Output() public gotReady: EventEmitter<void> = new EventEmitter<void>();
   @Output() public gotBusy: EventEmitter<void> = new EventEmitter<void>();
+  @Output() public gameFinished: EventEmitter<void> = new EventEmitter<void>();
 
   @ViewChild('root', {static: true}) root: ElementRef;
   @ViewChild('click_zone', {static: true}) clickZone: ElementRef;
@@ -656,7 +657,7 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
     if (this.chessService.isCheckmate()) {
       const playerSide = this.chessService.isWhiteTurn() ?
         'Blacks' : 'Whites';
-      gameFinishedMessage = `The ${playerSide} win`;
+      gameFinishedMessage = `${playerSide} checkmates`;
     } else if (this.chessService.isStalemate()) {
       gameFinishedMessage = 'Stalemate';
     } else if (this.chessService.isThreeFoldRepetition()) {
@@ -669,6 +670,7 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
 
     if (gameFinishedMessage !== undefined) {
       this.gameInProgress = false;
+      this.gameFinished.emit();
       const toast = await this.toastController.create({
         message: gameFinishedMessage,
         duration: 800,
