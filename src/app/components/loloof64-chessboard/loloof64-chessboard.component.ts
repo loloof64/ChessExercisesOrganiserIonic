@@ -380,6 +380,10 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
     this.gameInProgress = true;
   }
 
+  stopCurrentGame = () => {
+    this.gameInProgress = false;
+  }
+
   mustShowLastMove = () => {
     return this.lastMoveActive === true;
   }

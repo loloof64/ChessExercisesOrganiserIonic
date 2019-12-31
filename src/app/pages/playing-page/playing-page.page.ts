@@ -70,9 +70,35 @@ export class PlayingPage implements OnInit, DoCheck, AfterViewInit {
   }
 
   processRestartGameRequest = async () => {
+    if ( this.gameInProgress ) {
+      const alert = await this.alertController.create({
+        header: 'Quit current game ?',
+        message: 'Do you want to quit current game and start a new one ?',
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: () => {}
+          }, {
+            text: 'Okay',
+            handler: () => {
+              this.restartGame();
+            }
+          }
+        ]
+      });
+
+      await alert.present();
+    }
+    else this.restartGame();
+  }
+
+  processStopGameRequest = async () => {
+    if (! this.gameInProgress ) return;
     const alert = await this.alertController.create({
-      header: 'Quit current game ?',
-      message: 'Do you want to quit current game and start a new one ?',
+      header: 'Stop current game ?',
+      message: 'Do you want to stop current game ?',
       buttons: [
         {
           text: 'Cancel',
@@ -82,7 +108,9 @@ export class PlayingPage implements OnInit, DoCheck, AfterViewInit {
         }, {
           text: 'Okay',
           handler: () => {
-            this.restartGame();
+            this.boardBusy = false;
+            this.chessBoard.stopCurrentGame();
+            this.gameInProgress = false;
           }
         }
       ]
