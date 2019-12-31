@@ -80,8 +80,12 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
 
   ngOnChanges(changes: SimpleChanges) {
     const sizeChange = changes.size;
+    const reversedChange = changes.reversed;
     if (sizeChange !== undefined) {
       this.updateRenderSize();
+      this.updateLastMoveArrow();
+    }
+    if (reversedChange !== undefined) {
       this.updateLastMoveArrow();
     }
   }
