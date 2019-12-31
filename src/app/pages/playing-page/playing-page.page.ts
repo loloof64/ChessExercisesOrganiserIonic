@@ -21,6 +21,7 @@ export class PlayingPage implements OnInit, DoCheck, AfterViewInit {
   boardSize: number;
   boardBusy = true;
   reversed = false;
+  currentFen = undefined;
 
   faArrowsAltV = faArrowsAltV;
   faPlay = faPlay;
@@ -50,12 +51,8 @@ export class PlayingPage implements OnInit, DoCheck, AfterViewInit {
         {
           next: (params) => {
             const fen = params.get('fen');
-            const whiteTurn = fen.split(' ')[1] === 'w';
-            const whitePlayer = whiteTurn ? PlayerType.Human : PlayerType.Computer;
-            const blackPlayer = whiteTurn ? PlayerType.Computer : PlayerType.Human;
-            this.reversed = !whiteTurn;
-            this.chessBoard.startNewGame(whitePlayer, blackPlayer, fen);
-            this.boardBusy = false;
+            this.currentFen = fen;
+            this.restartGame();
           },
           error: (err) => console.error(err),
         }
@@ -65,6 +62,15 @@ export class PlayingPage implements OnInit, DoCheck, AfterViewInit {
 
   reverseBoard() {
     this.reversed = ! this.reversed;
+  }
+
+  restartGame() {
+    const whiteTurn = this.currentFen.split(' ')[1] === 'w';
+    const whitePlayer = whiteTurn ? PlayerType.Human : PlayerType.Computer;
+    const blackPlayer = whiteTurn ? PlayerType.Computer : PlayerType.Human;
+    this.reversed = !whiteTurn;
+    this.chessBoard.startNewGame(whitePlayer, blackPlayer, this.currentFen);
+    this.boardBusy = false;
   }
 
   hideLoader() {

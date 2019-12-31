@@ -360,6 +360,8 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
   }
 
   startNewGame = (white: PlayerType, black: PlayerType, startPosition: string) => {
+    this.lastMove = undefined;
+    this.clearLastMoveArrow();
     this.whitePlayerType = white;
     this.blackPlayerType = black;
     if (startPosition) {
@@ -412,6 +414,28 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
     const row = Math.floor((eventTouch.clientY - clickBounds.top - halfCellSize) / cellSize);
 
     return {col, row};
+  }
+
+  private clearLastMoveArrow = () => {
+    this.renderer.setStyle(this.lastMoveBaseLine.nativeElement, 'width', '0');
+    this.renderer.setStyle(this.lastMoveBaseLine.nativeElement, 'height', '0');
+    this.renderer.setStyle(this.lastMoveBaseLine.nativeElement, 'left', '0');
+    this.renderer.setStyle(this.lastMoveBaseLine.nativeElement, 'top', '0');
+    
+    this.renderer.setStyle(this.lastMoveArrow1.nativeElement, 'width', '0');
+    this.renderer.setStyle(this.lastMoveArrow1.nativeElement, 'height', '0');
+    this.renderer.setStyle(this.lastMoveArrow1.nativeElement, 'left', '0');
+    this.renderer.setStyle(this.lastMoveArrow1.nativeElement, 'top', '0');
+    
+    this.renderer.setStyle(this.lastMoveArrow2.nativeElement, 'width', '0');
+    this.renderer.setStyle(this.lastMoveArrow2.nativeElement, 'height', '0');
+    this.renderer.setStyle(this.lastMoveArrow2.nativeElement, 'left', '0');
+    this.renderer.setStyle(this.lastMoveArrow2.nativeElement, 'top', '0');
+
+    this.renderer.setStyle(this.lastMovePoint.nativeElement, 'width', '0');
+    this.renderer.setStyle(this.lastMovePoint.nativeElement, 'height', '0');
+    this.renderer.setStyle(this.lastMovePoint.nativeElement, 'left', '0');
+    this.renderer.setStyle(this.lastMovePoint.nativeElement, 'top', '0');
   }
 
   private updateLastMoveArrow = () => {
