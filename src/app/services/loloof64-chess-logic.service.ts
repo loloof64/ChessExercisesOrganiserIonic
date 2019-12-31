@@ -9,7 +9,7 @@ export interface ChessCell {
 @Injectable()
 export class Loloof64ChessLogicService {
 
-  private game = new Chess();
+  private game = new Chess('8/8/8/8/8/8/8/8 w - - 0 1');
 
   constructor() { }
 

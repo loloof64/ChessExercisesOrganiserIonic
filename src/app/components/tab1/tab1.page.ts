@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab1',
@@ -19,14 +20,15 @@ export class Tab1Page {
     },
 ];
 
-  constructor(public http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   loadExercice(exercise) {
     const path = exercise.path;
     const that = this;
     this.http.get(path, {responseType: 'text'}).subscribe({
       next(content) {
-        that.parseExercise(content);
+        const fen = that.parseExercise(content);
+        that.router.navigate(['playing-page', {fen}]);
       },
       error(err) {console.error(err);}
     });

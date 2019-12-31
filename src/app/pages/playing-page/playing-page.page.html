@@ -1,8 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>
-      Tab Three
-    </ion-title>
+    <ion-title>Playing page</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -13,7 +11,7 @@
     ></ion-spinner>
     <loloof64-chessboard 
       [size]="boardSize"
-      [reversed]="false"
+      [reversed]="reversed"
       (gotReady)="hideLoader()"
       (gotBusy)="showLoader()"
       #chessBoard
