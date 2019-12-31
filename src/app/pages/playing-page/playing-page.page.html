@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Playing page
+      Game page
       <ion-button (click)="reverseBoard()">
         <fa-icon [icon]="faArrowsAltV" size="2x"></fa-icon>
       </ion-button>
@@ -10,6 +10,15 @@
       </ion-button>
       <ion-button (click)="processStopGameRequest()">
         <fa-icon [icon]="faStop"></fa-icon>
+      </ion-button>
+      <ion-button (click)="toggleHistoryVisibility()">
+        <div *ngIf="historyActive;then showChess;else showHistory"></div>
+        <ng-template #showChess>
+          <fa-icon [icon]="faChessBoard" size="2x"></fa-icon>
+        </ng-template>
+        <ng-template #showHistory>
+          <fa-icon [icon]="faHistory" size="2x"></fa-icon>
+        </ng-template>
       </ion-button>
     </ion-title>
   </ion-toolbar>
@@ -28,4 +37,11 @@
       (gameFinished)="updateGameFinished()"
       #chessBoard
     ></loloof64-chessboard>
+    <loloof64-chesshistory
+      [width]="boardSize"
+      [height]="boardSize"
+      *ngIf="historyActive"
+    >
+    </loloof64-chesshistory
+    >
 </ion-content>

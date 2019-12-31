@@ -9,6 +9,8 @@ import {
   faArrowsAltV,
   faPlay,
   faStop,
+  faChessBoard,
+  faHistory,
 } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -23,10 +25,13 @@ export class PlayingPage implements OnInit, DoCheck, AfterViewInit {
   reversed = false;
   currentFen = undefined;
   gameInProgress = false;
+  historyActive = false;
 
   faArrowsAltV = faArrowsAltV;
   faPlay = faPlay;
   faStop = faStop;
+  faChessBoard = faChessBoard;
+  faHistory = faHistory;
 
   @ViewChild('chessBoard', {static: true}) chessBoard: Loloof64ChessboardComponent;
 
@@ -63,6 +68,10 @@ export class PlayingPage implements OnInit, DoCheck, AfterViewInit {
         }
       );
     }, 2500);
+  }
+
+  toggleHistoryVisibility() {
+    this.historyActive = ! this.historyActive;
   }
 
   reverseBoard() {
