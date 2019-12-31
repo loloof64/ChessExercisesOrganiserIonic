@@ -5,6 +5,12 @@ import { Loloof64ChessboardComponent } from '../../components/loloof64-chessboar
 
 import { ActivatedRoute } from '@angular/router';
 
+import {
+  faArrowsAltV,
+  faPlay,
+  faStop,
+} from '@fortawesome/free-solid-svg-icons';
+
 @Component({
   selector: 'app-playing-page',
   templateUrl: './playing-page.page.html',
@@ -15,6 +21,10 @@ export class PlayingPage implements OnInit, DoCheck, AfterViewInit {
   boardSize: number;
   boardBusy = true;
   reversed = false;
+
+  faArrowsAltV = faArrowsAltV;
+  faPlay = faPlay;
+  faStop = faStop;
 
   @ViewChild('chessBoard', {static: true}) chessBoard: Loloof64ChessboardComponent;
 

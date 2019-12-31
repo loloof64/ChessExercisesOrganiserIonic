@@ -8,6 +8,8 @@ import { PlayingPageRoutingModule } from './playing-page-routing.module';
 
 import { PlayingPage } from './playing-page.page';
 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 import { Loloof64ChessboardComponent } from '../../components/loloof64-chessboard/loloof64-chessboard.component';
 import { Loloof64ChessboardCellComponent } from '../../components/loloof64-chessboard/loloof64-chessboard-cell/loloof64-chessboard-cell.component';
 
@@ -16,7 +18,8 @@ import { Loloof64ChessboardCellComponent } from '../../components/loloof64-chess
     CommonModule,
     FormsModule,
     IonicModule,
-    PlayingPageRoutingModule
+    PlayingPageRoutingModule,
+    FontAwesomeModule,
   ],
   declarations: [PlayingPage, Loloof64ChessboardCellComponent, Loloof64ChessboardComponent]
 })
