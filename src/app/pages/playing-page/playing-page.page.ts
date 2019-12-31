@@ -63,6 +63,10 @@ export class PlayingPage implements OnInit, DoCheck, AfterViewInit {
     }, 2500);
   }
 
+  reverseBoard() {
+    this.reversed = ! this.reversed;
+  }
+
   hideLoader() {
     this.boardBusy = false;
   }

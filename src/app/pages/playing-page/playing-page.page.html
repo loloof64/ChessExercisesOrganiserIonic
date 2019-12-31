@@ -2,14 +2,14 @@
   <ion-toolbar>
     <ion-title>
       Playing page
+      <ion-button (click)="reverseBoard()">
+        <fa-icon [icon]="faArrowsAltV" size="2x"></fa-icon>
+      </ion-button>
       <ion-button>
         <fa-icon [icon]="faPlay"></fa-icon>
       </ion-button>
       <ion-button>
         <fa-icon [icon]="faStop"></fa-icon>
-      </ion-button>
-      <ion-button>
-        <fa-icon [icon]="faArrowsAltV" size="2x"></fa-icon>
       </ion-button>
     </ion-title>
   </ion-toolbar>
