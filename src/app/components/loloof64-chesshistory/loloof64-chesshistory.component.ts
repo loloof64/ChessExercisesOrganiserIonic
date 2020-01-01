@@ -10,6 +10,7 @@ export class Loloof64ChesshistoryComponent implements OnInit {
   @Input() height = 200.0;
   @Input() width = 200.0;
 
+  firstMove = false;
   elements = [];
 
   constructor(private changeDetector: ChangeDetectorRef,) { }
@@ -17,10 +18,11 @@ export class Loloof64ChesshistoryComponent implements OnInit {
   ngOnInit() {}
 
   addMoveFan = ({moveFan, whiteTurn, moveNumber}) => {
-    if (whiteTurn) this.addMoveNumber({whiteTurn, moveNumber});
+    if (whiteTurn && !this.firstMove) this.addMoveNumber({whiteTurn, moveNumber});
     this.elements.push({
       text: moveFan,
     });
+    this.firstMove = false;
     this.changeDetector.detectChanges();
   }
 
@@ -33,6 +35,7 @@ export class Loloof64ChesshistoryComponent implements OnInit {
 
   clear = () => {
     this.elements = [];
+    this.firstMove = true;
   }
 
 }
