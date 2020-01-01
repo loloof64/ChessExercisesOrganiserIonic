@@ -131,6 +131,7 @@ export class PlayingPage implements OnInit, DoCheck, AfterViewInit {
   }
 
   restartGame() {
+    this.chessHistory.clear();
     const whiteTurn = this.currentFen.split(' ')[1] === 'w';
     const whitePlayer = whiteTurn ? PlayerType.Human : PlayerType.Computer;
     const blackPlayer = whiteTurn ? PlayerType.Computer : PlayerType.Human;

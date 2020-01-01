@@ -23,4 +23,8 @@ export class Loloof64ChesshistoryComponent implements OnInit {
     this.changeDetector.detectChanges();
   }
 
+  clear = () => {
+    this.elements = [];
+  }
+
 }
