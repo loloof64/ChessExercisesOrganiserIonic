@@ -153,17 +153,17 @@ export class PlayingPage implements OnInit, DoCheck, AfterViewInit {
     this.gameInProgress = false;
   }
 
-  addMoveSanToHistory({moveSan, whiteTurn}) {
+  addMoveSanToHistory({moveSan, whiteTurn, moveNumber}) {
     const moveFan = this.convertSanToFan({moveSan, whiteTurn});
     this.chessHistory.addMoveFan(moveFan);
   }
 
   convertSanToFan({moveSan, whiteTurn}) {
-    moveSan = moveSan.replace(/K/g, whiteTurn ? '\u2654' : '\u265A').normalize("NFD");
-    moveSan = moveSan.replace(/Q/g, whiteTurn ? '\u2655' : '\u265B').normalize("NFD");
-    moveSan = moveSan.replace(/R/g, whiteTurn ? '\u2656' : '\u265C').normalize("NFD");
-    moveSan = moveSan.replace(/B/g, whiteTurn ? '\u2657' : '\u265D').normalize("NFD");
-    moveSan = moveSan.replace(/N/g, whiteTurn ? '\u2658' : '\u265E').normalize("NFD");
+    moveSan = moveSan.replace(/K/g, whiteTurn ? '\u2654' : '\u265A').normalize("NFKC");
+    moveSan = moveSan.replace(/Q/g, whiteTurn ? '\u2655' : '\u265B').normalize("NFKC");
+    moveSan = moveSan.replace(/R/g, whiteTurn ? '\u2656' : '\u265C').normalize("NFKC");
+    moveSan = moveSan.replace(/B/g, whiteTurn ? '\u2657' : '\u265D').normalize("NFKC");
+    moveSan = moveSan.replace(/N/g, whiteTurn ? '\u2658' : '\u265E').normalize("NFKC");
 
     return moveSan;
   }

@@ -1,11 +1,11 @@
 .history_main {
+    display: flex;
+    flex-wrap: wrap;
     overflow: scroll;
     background-color: beige;
-    word-wrap: break-word;
-    word-break: break-word;
 }
 
 .moveEntry {
-    font-size: larger;
+    font-size: 24px;
     margin: 0 10px;
 }
