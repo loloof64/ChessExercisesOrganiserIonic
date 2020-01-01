@@ -153,6 +153,10 @@ export class PlayingPage implements OnInit, DoCheck, AfterViewInit {
     this.gameInProgress = false;
   }
 
+  addFirstMoveNumber = ({whiteTurn, moveNumber}) => {
+    this.chessHistory.addMoveNumber({whiteTurn, moveNumber});
+  }
+
   addMoveSanToHistory({moveSan, whiteTurn, moveNumber}) {
     const moveFan = this.convertSanToFan({moveSan, whiteTurn});
     this.chessHistory.addMoveFan({moveFan, whiteTurn, moveNumber});

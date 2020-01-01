@@ -14,8 +14,13 @@ interface ChessMove {
   to: ChessCell;
 }
 
-interface MoveSanData {
+interface MoveData {
   moveSan: string;
+  whiteTurn: boolean;
+  moveNumber: number;
+}
+
+interface GameStartedData {
   whiteTurn: boolean;
   moveNumber: number;
 }
@@ -34,7 +39,8 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
   @Output() public gotReady: EventEmitter<void> = new EventEmitter<void>();
   @Output() public gotBusy: EventEmitter<void> = new EventEmitter<void>();
   @Output() public gameFinished: EventEmitter<void> = new EventEmitter<void>();
-  @Output() public moveSanProduced: EventEmitter<MoveSanData> = new EventEmitter<MoveSanData>();
+  @Output() public moveSanProduced: EventEmitter<MoveData> = new EventEmitter<MoveData>();
+  @Output() public gameStarted: EventEmitter<GameStartedData> = new EventEmitter<GameStartedData>();
 
   @ViewChild('root', {static: true}) root: ElementRef;
   @ViewChild('click_zone', {static: true}) clickZone: ElementRef;
@@ -388,6 +394,7 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
     } else {
       this.chessService.newGame();
     }
+    this.gameStarted.emit({moveNumber: this.chessService.moveNumber(), whiteTurn: this.chessService.isWhiteTurn()});
     this.piecesValues = this.piecesValuesFromPosition();
     this.engineCommunicationLayer.postMessage('ucinewgame');
     this.engineCommunicationLayer.postMessage(
