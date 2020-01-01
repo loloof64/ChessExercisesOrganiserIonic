@@ -18,6 +18,10 @@ export class Loloof64ChessLogicService {
 
   constructor() { }
 
+  moveNumber = () => {
+    return parseInt(this.game.fen().split(' ')[5]);
+  }
+
   newGame = (startPosition: string = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1') => {
     this.game = new Chess(startPosition);
   }

@@ -155,7 +155,7 @@ export class PlayingPage implements OnInit, DoCheck, AfterViewInit {
 
   addMoveSanToHistory({moveSan, whiteTurn, moveNumber}) {
     const moveFan = this.convertSanToFan({moveSan, whiteTurn});
-    this.chessHistory.addMoveFan(moveFan);
+    this.chessHistory.addMoveFan({moveFan, whiteTurn, moveNumber});
   }
 
   convertSanToFan({moveSan, whiteTurn}) {

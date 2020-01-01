@@ -16,11 +16,19 @@ export class Loloof64ChesshistoryComponent implements OnInit {
 
   ngOnInit() {}
 
-  addMoveFan = (moveFan) => {
+  addMoveFan = ({moveFan, whiteTurn, moveNumber}) => {
+    if (whiteTurn) this.addMoveNumber({whiteTurn, moveNumber});
     this.elements.push({
       text: moveFan,
     });
     this.changeDetector.detectChanges();
+  }
+
+  addMoveNumber = ({whiteTurn, moveNumber}) => {
+    const text = `${moveNumber}.${whiteTurn ? '' : '..'}`;
+    this.elements.push({
+      text
+    });
   }
 
   clear = () => {

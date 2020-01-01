@@ -17,6 +17,7 @@ interface ChessMove {
 interface MoveSanData {
   moveSan: string;
   whiteTurn: boolean;
+  moveNumber: number;
 }
 
 @Component({
@@ -276,7 +277,7 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
     this.dndHoveringCell = null;
 
     if (moveResult) {
-      this.moveSanProduced.emit({moveSan: moveResult.san, whiteTurn: moveResult.color === 'w'});
+      this.moveSanProduced.emit({moveSan: moveResult.san, whiteTurn: moveResult.color === 'w', moveNumber: this.chessService.moveNumber()});
     }
   }
 
@@ -364,7 +365,7 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
     this.dndHoveringCell = null;
 
     if (moveResult) {
-      this.moveSanProduced.emit({moveSan: moveResult.san, whiteTurn: moveResult.color === 'w'});
+      this.moveSanProduced.emit({moveSan: moveResult.san, whiteTurn: moveResult.color === 'w', moveNumber: this.chessService.moveNumber()});
     }
   }
 
@@ -719,7 +720,7 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
     this.finishComputerMove();
 
     if (moveResult) {
-      this.moveSanProduced.emit({moveSan: moveResult.san, whiteTurn: moveResult.color === 'w'});
+      this.moveSanProduced.emit({moveSan: moveResult.san, whiteTurn: moveResult.color === 'w', moveNumber: this.chessService.moveNumber()});
     }
   }
 
@@ -743,7 +744,7 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
     this.finishComputerMove();
 
     if (moveResult) {
-      this.moveSanProduced.emit({moveSan: moveResult.san, whiteTurn: moveResult.color === 'w'});
+      this.moveSanProduced.emit({moveSan: moveResult.san, whiteTurn: moveResult.color === 'w', moveNumber: this.chessService.moveNumber()});
     }
   }
 
