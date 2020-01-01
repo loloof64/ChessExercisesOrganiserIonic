@@ -76,6 +76,10 @@ export class PlayingPage implements OnInit, DoCheck, AfterViewInit {
     this.chessBoard.requestFen(fen);
   }
 
+  sendRequestBoardLastMove = (lastMove) => {
+    this.chessBoard.requestLastMove(lastMove);
+  }
+
   toggleHistoryVisibility() {
     this.historyActive = ! this.historyActive;
   }
@@ -161,9 +165,9 @@ export class PlayingPage implements OnInit, DoCheck, AfterViewInit {
     this.chessHistory.addMoveNumber({whiteTurn, moveNumber});
   }
 
-  addMoveSanToHistory({moveSan, whiteTurn, moveNumber, fen}) {
+  addMoveToHistory({moveSan, whiteTurn, moveNumber, fen, lastMove}) {
     const moveFan = this.convertSanToFan({moveSan, whiteTurn});
-    this.chessHistory.addMove({moveFan, whiteTurn, moveNumber, fen});
+    this.chessHistory.addMove({moveFan, whiteTurn, moveNumber, fen, lastMove});
   }
 
   convertSanToFan({moveSan, whiteTurn}) {

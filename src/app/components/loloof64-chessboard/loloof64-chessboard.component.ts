@@ -9,7 +9,7 @@ import { Loloof64ChessEngineCommunicationService } from '../../services/loloof64
 import { Loloof64ChessPromotionPage } from '../../pages/loloof64-chess-promotion/loloof64-chess-promotion.page';
 import { PlayerType } from './PlayerType';
 
-interface ChessMove {
+export interface ChessMove {
   from: ChessCell;
   to: ChessCell;
 }
@@ -19,6 +19,7 @@ interface MoveData {
   whiteTurn: boolean;
   moveNumber: number;
   fen: string;
+  lastMove: ChessMove;
 }
 
 interface GameStartedData {
@@ -40,7 +41,7 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
   @Output() public gotReady: EventEmitter<void> = new EventEmitter<void>();
   @Output() public gotBusy: EventEmitter<void> = new EventEmitter<void>();
   @Output() public gameFinished: EventEmitter<void> = new EventEmitter<void>();
-  @Output() public moveSanProduced: EventEmitter<MoveData> = new EventEmitter<MoveData>();
+  @Output() public moveProduced: EventEmitter<MoveData> = new EventEmitter<MoveData>();
   @Output() public gameStarted: EventEmitter<GameStartedData> = new EventEmitter<GameStartedData>();
 
   @ViewChild('root', {static: true}) root: ElementRef;
@@ -182,6 +183,12 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
     this.piecesValues = this.piecesValuesFromPosition();
   }
 
+  requestLastMove = (lastMove) => {
+    if (this.gameInProgress) return;
+    this.lastMove = lastMove;
+    this.updateLastMoveArrow();
+  }
+
   getFile = (col: number) => {
     return this.reversed ? 7 - col : col;
   }
@@ -290,11 +297,12 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
     this.dndHoveringCell = null;
 
     if (moveResult) {
-      this.moveSanProduced.emit({
+      this.moveProduced.emit({
         moveSan: moveResult.san, 
         whiteTurn: moveResult.color === 'w', 
         moveNumber: this.chessService.moveNumber(),
         fen: this.chessService.fen(),
+        lastMove: this.lastMove,
       });
     }
   }
@@ -383,11 +391,12 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
     this.dndHoveringCell = null;
 
     if (moveResult) {
-      this.moveSanProduced.emit({
+      this.moveProduced.emit({
         moveSan: moveResult.san, 
         whiteTurn: moveResult.color === 'w', 
         moveNumber: this.chessService.moveNumber(),
         fen: this.chessService.fen(),
+        lastMove: this.lastMove,
       });
     }
   }
@@ -744,11 +753,12 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
     this.finishComputerMove();
 
     if (moveResult) {
-      this.moveSanProduced.emit({
+      this.moveProduced.emit({
         moveSan: moveResult.san, 
         whiteTurn: moveResult.color === 'w', 
         moveNumber: this.chessService.moveNumber(),
         fen: this.chessService.fen(),
+        lastMove: this.lastMove,
       });
     }
   }
@@ -773,11 +783,12 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
     this.finishComputerMove();
 
     if (moveResult) {
-      this.moveSanProduced.emit({
+      this.moveProduced.emit({
         moveSan: moveResult.san, 
         whiteTurn: moveResult.color === 'w', 
         moveNumber: this.chessService.moveNumber(),
         fen: this.chessService.fen(),
+        lastMove: this.lastMove,
       });
     }
   }
