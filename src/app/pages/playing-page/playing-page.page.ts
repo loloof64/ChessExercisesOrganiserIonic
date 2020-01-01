@@ -159,11 +159,11 @@ export class PlayingPage implements OnInit, DoCheck, AfterViewInit {
   }
 
   convertSanToFan({moveSan, whiteTurn}) {
-    moveSan = moveSan.replace(/K/g, whiteTurn ? '\u2654' : '\u265A');
-    moveSan = moveSan.replace(/Q/g, whiteTurn ? '\u2655' : '\u265B');
-    moveSan = moveSan.replace(/R/g, whiteTurn ? '\u2656' : '\u265C');
-    moveSan = moveSan.replace(/B/g, whiteTurn ? '\u2657' : '\u265D');
-    moveSan = moveSan.replace(/N/g, whiteTurn ? '\u2658' : '\u265E');
+    moveSan = moveSan.replace(/K/g, whiteTurn ? '\u2654' : '\u265A').normalize("NFD");
+    moveSan = moveSan.replace(/Q/g, whiteTurn ? '\u2655' : '\u265B').normalize("NFD");
+    moveSan = moveSan.replace(/R/g, whiteTurn ? '\u2656' : '\u265C').normalize("NFD");
+    moveSan = moveSan.replace(/B/g, whiteTurn ? '\u2657' : '\u265D').normalize("NFD");
+    moveSan = moveSan.replace(/N/g, whiteTurn ? '\u2658' : '\u265E').normalize("NFD");
 
     return moveSan;
   }
