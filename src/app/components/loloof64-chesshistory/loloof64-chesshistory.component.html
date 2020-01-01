@@ -1,5 +1,9 @@
 <div class="history_main" 
     [style.width.px]="width" [style.height.px]="height"
 >
-    <span *ngFor="let singleElement of elements" class="moveEntry">{{singleElement.text}}</span>
+    <span 
+    *ngFor="let singleElement of elements" 
+    class="moveEntry"
+    (click)="sendRequestSetBoardFen(singleElement)"
+    >{{singleElement.text}}</span>
 </div>

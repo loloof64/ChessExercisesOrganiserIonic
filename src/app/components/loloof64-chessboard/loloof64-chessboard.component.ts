@@ -18,6 +18,7 @@ interface MoveData {
   moveSan: string;
   whiteTurn: boolean;
   moveNumber: number;
+  fen: string;
 }
 
 interface GameStartedData {
@@ -175,6 +176,12 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
     return result;
   }
 
+  requestFen = (fen) => {
+    if (this.gameInProgress) return;
+    this.chessService.setPosition(fen);
+    this.piecesValues = this.piecesValuesFromPosition();
+  }
+
   getFile = (col: number) => {
     return this.reversed ? 7 - col : col;
   }
@@ -283,7 +290,12 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
     this.dndHoveringCell = null;
 
     if (moveResult) {
-      this.moveSanProduced.emit({moveSan: moveResult.san, whiteTurn: moveResult.color === 'w', moveNumber: this.chessService.moveNumber()});
+      this.moveSanProduced.emit({
+        moveSan: moveResult.san, 
+        whiteTurn: moveResult.color === 'w', 
+        moveNumber: this.chessService.moveNumber(),
+        fen: this.chessService.fen(),
+      });
     }
   }
 
@@ -371,7 +383,12 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
     this.dndHoveringCell = null;
 
     if (moveResult) {
-      this.moveSanProduced.emit({moveSan: moveResult.san, whiteTurn: moveResult.color === 'w', moveNumber: this.chessService.moveNumber()});
+      this.moveSanProduced.emit({
+        moveSan: moveResult.san, 
+        whiteTurn: moveResult.color === 'w', 
+        moveNumber: this.chessService.moveNumber(),
+        fen: this.chessService.fen(),
+      });
     }
   }
 
@@ -727,7 +744,12 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
     this.finishComputerMove();
 
     if (moveResult) {
-      this.moveSanProduced.emit({moveSan: moveResult.san, whiteTurn: moveResult.color === 'w', moveNumber: this.chessService.moveNumber()});
+      this.moveSanProduced.emit({
+        moveSan: moveResult.san, 
+        whiteTurn: moveResult.color === 'w', 
+        moveNumber: this.chessService.moveNumber(),
+        fen: this.chessService.fen(),
+      });
     }
   }
 
@@ -751,7 +773,12 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
     this.finishComputerMove();
 
     if (moveResult) {
-      this.moveSanProduced.emit({moveSan: moveResult.san, whiteTurn: moveResult.color === 'w', moveNumber: this.chessService.moveNumber()});
+      this.moveSanProduced.emit({
+        moveSan: moveResult.san, 
+        whiteTurn: moveResult.color === 'w', 
+        moveNumber: this.chessService.moveNumber(),
+        fen: this.chessService.fen(),
+      });
     }
   }
 

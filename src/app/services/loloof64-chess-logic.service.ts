@@ -80,4 +80,12 @@ export class Loloof64ChessLogicService {
   isWhiteTurn = () => {
     return this.game.turn() === 'w';
   }
+
+  fen = () => {
+    return this.game.fen();
+  }
+
+  setPosition = (fen) => {
+    this.game.load(fen);
+  }
 }
