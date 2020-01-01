@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'loloof64-chesshistory',
@@ -10,8 +10,17 @@ export class Loloof64ChesshistoryComponent implements OnInit {
   @Input() height = 200.0;
   @Input() width = 200.0;
 
-  constructor() { }
+  elements = [];
+
+  constructor(private changeDetector: ChangeDetectorRef,) { }
 
   ngOnInit() {}
+
+  addMoveFan = (moveFan) => {
+    this.elements.push({
+      text: moveFan,
+    });
+    this.changeDetector.detectChanges();
+  }
 
 }

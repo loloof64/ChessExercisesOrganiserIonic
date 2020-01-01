@@ -14,6 +14,11 @@ interface ChessMove {
   to: ChessCell;
 }
 
+interface MoveSanData {
+  moveSan: string;
+  whiteTurn: boolean;
+}
+
 @Component({
   selector: 'loloof64-chessboard',
   templateUrl: './loloof64-chessboard.component.html',
@@ -28,6 +33,7 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
   @Output() public gotReady: EventEmitter<void> = new EventEmitter<void>();
   @Output() public gotBusy: EventEmitter<void> = new EventEmitter<void>();
   @Output() public gameFinished: EventEmitter<void> = new EventEmitter<void>();
+  @Output() public moveSanProduced: EventEmitter<MoveSanData> = new EventEmitter<MoveSanData>();
 
   @ViewChild('root', {static: true}) root: ElementRef;
   @ViewChild('click_zone', {static: true}) clickZone: ElementRef;
@@ -255,7 +261,9 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
       return;
     }
 
-    const legalMove = await this.chessService.checkAndDoMove(this.dndHighlightedCell, this.dndHoveringCell);
+    const moveResult = await this.chessService.checkAndDoMove(this.dndHighlightedCell, this.dndHoveringCell);
+    const legalMove = moveResult !== null;
+
     if (legalMove) {
       this.lastMove = {
         from: this.dndHighlightedCell,
@@ -266,6 +274,10 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
 
     this.dndHighlightedCell = null;
     this.dndHoveringCell = null;
+
+    if (moveResult) {
+      this.moveSanProduced.emit({moveSan: moveResult.san, whiteTurn: moveResult.color === 'w'});
+    }
   }
 
 
@@ -334,11 +346,12 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
 
   validatePromotion = async (value: string) => {
     this.modalController.dismiss();
-    const legalMove = await this.chessService.checkAndDoMoveWithPromotion(
+    const moveResult = await this.chessService.checkAndDoMoveWithPromotion(
       this.dndHighlightedCell,
       this.dndHoveringCell,
       value,
     );
+    const legalMove = moveResult !== null;
     if (legalMove) {
       this.lastMove = {
         from: this.dndHighlightedCell,
@@ -349,6 +362,10 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
 
     this.dndHighlightedCell = null;
     this.dndHoveringCell = null;
+
+    if (moveResult) {
+      this.moveSanProduced.emit({moveSan: moveResult.san, whiteTurn: moveResult.color === 'w'});
+    }
   }
 
   dndHasStarted = () => {
@@ -688,7 +705,7 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
     const fromCell = this.algebraicToChessCell(from);
     const toCell = this.algebraicToChessCell(to);
 
-    await this.chessService.checkAndDoMove(
+    const moveResult = await this.chessService.checkAndDoMove(
       fromCell,
       toCell,
     );
@@ -700,6 +717,10 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
     this.updateLastMoveArrow();
 
     this.finishComputerMove();
+
+    if (moveResult) {
+      this.moveSanProduced.emit({moveSan: moveResult.san, whiteTurn: moveResult.color === 'w'});
+    }
   }
 
   private commitComputerMoveWithPromotion = async (from: string, to: string, promotion: string) => {
@@ -707,7 +728,7 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
     const fromCell = this.algebraicToChessCell(from);
     const toCell = this.algebraicToChessCell(to);
 
-    await this.chessService.checkAndDoMoveWithPromotion(
+    const moveResult = await this.chessService.checkAndDoMoveWithPromotion(
       fromCell,
       toCell,
       promotion
@@ -720,6 +741,10 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
     this.updateLastMoveArrow();
 
     this.finishComputerMove();
+
+    if (moveResult) {
+      this.moveSanProduced.emit({moveSan: moveResult.san, whiteTurn: moveResult.color === 'w'});
+    }
   }
 
   private finishComputerMove = () => {

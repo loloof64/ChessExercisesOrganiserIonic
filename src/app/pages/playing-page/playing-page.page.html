@@ -29,19 +29,21 @@
       color="primary"
       *ngIf="boardBusy"
     ></ion-spinner>
+    <loloof64-chesshistory
+      [width]="boardSize"
+      [height]="boardSize"
+      #chessHistory
+    >
+    </loloof64-chesshistory
+    >
     <loloof64-chessboard 
+      [style.visibility]="historyActive ? 'collapse' : 'visible'"
       [size]="boardSize"
       [reversed]="reversed"
       (gotReady)="hideLoader()"
       (gotBusy)="showLoader()"
       (gameFinished)="updateGameFinished()"
+      (moveSanProduced)="addMoveSanToHistory($event)"
       #chessBoard
     ></loloof64-chessboard>
-    <loloof64-chesshistory
-      [width]="boardSize"
-      [height]="boardSize"
-      *ngIf="historyActive"
-    >
-    </loloof64-chesshistory
-    >
 </ion-content>

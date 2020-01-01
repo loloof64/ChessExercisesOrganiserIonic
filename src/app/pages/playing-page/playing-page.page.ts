@@ -2,6 +2,7 @@ import { Component, ViewChild, OnInit, DoCheck, AfterViewInit } from '@angular/c
 import { Platform, AlertController } from '@ionic/angular';
 import { PlayerType } from '../../components/loloof64-chessboard/PlayerType';
 import { Loloof64ChessboardComponent } from '../../components/loloof64-chessboard/loloof64-chessboard.component';
+import { Loloof64ChesshistoryComponent } from '../../components/loloof64-chesshistory/loloof64-chesshistory.component';
 
 import { ActivatedRoute } from '@angular/router';
 
@@ -34,6 +35,7 @@ export class PlayingPage implements OnInit, DoCheck, AfterViewInit {
   faHistory = faHistory;
 
   @ViewChild('chessBoard', {static: true}) chessBoard: Loloof64ChessboardComponent;
+  @ViewChild('chessHistory', {static: true}) chessHistory: Loloof64ChesshistoryComponent;
 
   constructor(
     private platform: Platform, 
@@ -150,5 +152,19 @@ export class PlayingPage implements OnInit, DoCheck, AfterViewInit {
     this.gameInProgress = false;
   }
 
+  addMoveSanToHistory({moveSan, whiteTurn}) {
+    const moveFan = this.convertSanToFan({moveSan, whiteTurn});
+    this.chessHistory.addMoveFan(moveFan);
+  }
+
+  convertSanToFan({moveSan, whiteTurn}) {
+    moveSan = moveSan.replace(/K/g, whiteTurn ? '\u2654' : '\u265A');
+    moveSan = moveSan.replace(/Q/g, whiteTurn ? '\u2655' : '\u265B');
+    moveSan = moveSan.replace(/R/g, whiteTurn ? '\u2656' : '\u265C');
+    moveSan = moveSan.replace(/B/g, whiteTurn ? '\u2657' : '\u265D');
+    moveSan = moveSan.replace(/N/g, whiteTurn ? '\u2658' : '\u265E');
+
+    return moveSan;
+  }
 
 }

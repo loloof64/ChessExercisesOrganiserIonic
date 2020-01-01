@@ -6,6 +6,11 @@ export interface ChessCell {
   rank: number;
 }
 
+export interface MoveResult {
+  san: string;
+  color: string;
+}
+
 @Injectable()
 export class Loloof64ChessLogicService {
 
@@ -41,23 +46,23 @@ export class Loloof64ChessLogicService {
     return this.game.fen();
   }
 
-  checkAndDoMove = (start: ChessCell, end: ChessCell) => {
+  checkAndDoMove = (start: ChessCell, end: ChessCell) : Promise<MoveResult> => {
     return new Promise((resolve) => {
       const fromCell = this.cellToCoordsString(start);
       const toCell = this.cellToCoordsString(end);
       
       const moveResult = this.game.move({ from: fromCell, to: toCell });
-      resolve(moveResult !== null);
+      resolve(moveResult);
     });
   }
 
-  checkAndDoMoveWithPromotion = (start: ChessCell, end: ChessCell, promotion: string) => {
+  checkAndDoMoveWithPromotion = (start: ChessCell, end: ChessCell, promotion: string) : Promise<MoveResult> => {
     return new Promise((resolve) => {
       const fromCell = this.cellToCoordsString(start);
       const toCell = this.cellToCoordsString(end);
       
       const moveResult = this.game.move({ from: fromCell, to: toCell, promotion, });
-      resolve(moveResult !== null);
+      resolve(moveResult);
     });
   }
 
