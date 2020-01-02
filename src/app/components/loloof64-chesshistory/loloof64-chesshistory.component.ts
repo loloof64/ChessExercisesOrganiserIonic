@@ -15,6 +15,7 @@ export class Loloof64ChesshistoryComponent implements OnInit {
 
   firstMove = false;
   elements = [];
+  selectedElement = undefined;
 
   constructor(private changeDetector: ChangeDetectorRef,) { }
 
@@ -40,12 +41,17 @@ export class Loloof64ChesshistoryComponent implements OnInit {
   clear = () => {
     this.elements = [];
     this.firstMove = true;
+    this.selectedElement = undefined;
   }
 
   sendRequestSetBoardMove = (elt) => {
     if (elt.fen && elt.lastMove) {
       this.requestBoardPosition.emit(elt);
     }
+  }
+
+  setSelectedElement = (elt) => {
+    this.selectedElement = elt;
   }
 
 }

@@ -6,6 +6,7 @@
             *ngFor="let singleElement of elements" 
             class="moveEntry"
             (click)="sendRequestSetBoardMove(singleElement)"
+            [style.backgroundColor]="selectedElement === singleElement ? 'lightgreen' : 'beige'"
         >{{singleElement.text}}</span>
     </div>
 </div>
