@@ -167,6 +167,7 @@ export class PlayingPage implements OnInit, DoCheck, AfterViewInit {
 
   setSelectedElementInHistory(elt) {
     this.chessHistory.setSelectedElement(elt);
+    this.historyActive = false;
   }
 
 }
