@@ -143,6 +143,7 @@ export class PlayingPage implements OnInit, DoCheck, AfterViewInit {
     this.chessBoard.startNewGame(whitePlayer, blackPlayer, this.currentFen);
     this.boardBusy = false;
     this.gameInProgress = true;
+    this.historyActive = false;
   }
 
   hideLoader() {
