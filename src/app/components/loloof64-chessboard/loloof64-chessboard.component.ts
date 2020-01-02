@@ -20,6 +20,7 @@ export interface MoveData {
   moveNumber: number;
   fen: string;
   lastMove: ChessMove;
+  text: string;
 }
 
 interface GameStartedData {
@@ -43,7 +44,7 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
   @Output() public gameFinished: EventEmitter<void> = new EventEmitter<void>();
   @Output() public moveProduced: EventEmitter<MoveData> = new EventEmitter<MoveData>();
   @Output() public gameStarted: EventEmitter<GameStartedData> = new EventEmitter<GameStartedData>();
-  @Output() public fenRequestAccepted: EventEmitter<MoveData> = new EventEmitter<MoveData>();
+  @Output() public moveRequestAccepted: EventEmitter<MoveData> = new EventEmitter<MoveData>();
 
   @ViewChild('root', {static: true}) root: ElementRef;
   @ViewChild('click_zone', {static: true}) clickZone: ElementRef;
@@ -66,6 +67,7 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
   private computerIsThinking = false;
   private lastMove: ChessMove;
   private lastMoveActive = true;
+  private lastMoveData: MoveData = undefined;
   
   allFilesCoordinates: string [] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
   allRanksCoordinates: string [] = ['1', '2', '3', '4', '5', '6', '7', '8'];
@@ -184,7 +186,7 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
     this.piecesValues = this.piecesValuesFromPosition();
     this.lastMove = moveData.lastMove;
     this.updateLastMoveArrow();
-    this.fenRequestAccepted.emit(moveData);
+    this.moveRequestAccepted.emit(moveData);
   }
 
   getFile = (col: number) => {
@@ -288,23 +290,29 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
         from: this.dndHighlightedCell,
         to: this.dndHoveringCell,
       };
+    }
+
+    if (moveResult) {
+      const moveSan = moveResult.san;
+      const whiteTurn = moveResult.color === 'w';
+      const moveFan = this.convertSanToFan({moveSan, whiteTurn});
+      this.lastMoveData = {
+        moveFan: moveFan, 
+        whiteTurn: whiteTurn, 
+        moveNumber: this.chessService.moveNumber(),
+        fen: this.chessService.fen(),
+        lastMove: this.lastMove,
+        text: moveFan,
+      };
+      this.moveProduced.emit(this.lastMoveData);
+    }
+
+    if (legalMove) {
       this.commitHumanMove();
     }
 
     this.dndHighlightedCell = null;
     this.dndHoveringCell = null;
-
-    if (moveResult) {
-      const moveSan = moveResult.san;
-      const whiteTurn = moveResult.color === 'w';
-      this.moveProduced.emit({
-        moveFan: this.convertSanToFan({moveSan, whiteTurn}), 
-        whiteTurn: whiteTurn, 
-        moveNumber: this.chessService.moveNumber(),
-        fen: this.chessService.fen(),
-        lastMove: this.lastMove,
-      });
-    }
   }
 
 
@@ -384,22 +392,28 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
         from: this.dndHighlightedCell,
         to: this.dndHoveringCell,
       };
-      this.commitHumanMove();
     }
-
-    this.dndHighlightedCell = null;
-    this.dndHoveringCell = null;
 
     if (moveResult) {
       const moveSan = moveResult.san;
       const whiteTurn = moveResult.color === 'w';
-      this.moveProduced.emit({
-        moveFan: this.convertSanToFan({moveSan, whiteTurn}), 
+      const moveFan = this.convertSanToFan({moveSan, whiteTurn});
+      this.lastMoveData = {
+        moveFan: moveFan, 
         whiteTurn: whiteTurn, 
         moveNumber: this.chessService.moveNumber(),
         fen: this.chessService.fen(),
         lastMove: this.lastMove,
-      });
+        text: moveFan,
+      };
+      this.moveProduced.emit(this.lastMoveData);
+
+      if (legalMove) {
+        this.commitHumanMove();
+      }
+
+      this.dndHighlightedCell = null;
+      this.dndHoveringCell = null;
     }
   }
 
@@ -414,6 +428,7 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
 
   startNewGame = (white: PlayerType, black: PlayerType, startPosition: string) => {
     this.lastMove = undefined;
+    this.lastMoveData = undefined;
     this.clearLastMoveArrow();
     this.whitePlayerType = white;
     this.blackPlayerType = black;
@@ -435,6 +450,7 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
 
   stopCurrentGame = () => {
     this.gameInProgress = false;
+    this.moveRequestAccepted.emit(this.lastMoveData);
   }
 
   mustShowLastMove = () => {
@@ -738,6 +754,7 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
     if (gameFinishedMessage !== undefined) {
       this.gameInProgress = false;
       this.gameFinished.emit();
+      this.moveRequestAccepted.emit(this.lastMoveData);
       const toast = await this.toastController.create({
         message: gameFinishedMessage,
         duration: 800,
@@ -762,19 +779,22 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
     };
     this.updateLastMoveArrow();
 
-    this.finishComputerMove();
-
     if (moveResult) {
       const moveSan = moveResult.san;
       const whiteTurn = moveResult.color === 'w';
-      this.moveProduced.emit({
-        moveFan: this.convertSanToFan({moveSan, whiteTurn}), 
+      const moveFan = this.convertSanToFan({moveSan, whiteTurn});
+      this.lastMoveData = {
+        moveFan: moveFan, 
         whiteTurn: whiteTurn, 
         moveNumber: this.chessService.moveNumber(),
         fen: this.chessService.fen(),
         lastMove: this.lastMove,
-      });
+        text: moveFan,
+      };
+      this.moveProduced.emit(this.lastMoveData);
     }
+
+    this.finishComputerMove();
   }
 
   private commitComputerMoveWithPromotion = async (from: string, to: string, promotion: string) => {
@@ -794,19 +814,22 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
     };
     this.updateLastMoveArrow();
 
-    this.finishComputerMove();
-
     if (moveResult) {
       const moveSan = moveResult.san;
       const whiteTurn = moveResult.color === 'w';
-      this.moveProduced.emit({
-        moveFan:this.convertSanToFan({moveSan, whiteTurn}), 
+      const moveFan = this.convertSanToFan({moveSan, whiteTurn});
+      this.lastMoveData = {
+        moveFan: moveFan, 
         whiteTurn: whiteTurn, 
         moveNumber: this.chessService.moveNumber(),
         fen: this.chessService.fen(),
         lastMove: this.lastMove,
-      });
+        text: moveFan,
+      };
+      this.moveProduced.emit(this.lastMoveData);
     }
+
+    this.finishComputerMove();
   }
 
   private finishComputerMove = () => {

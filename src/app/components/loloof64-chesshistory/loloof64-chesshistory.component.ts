@@ -23,10 +23,7 @@ export class Loloof64ChesshistoryComponent implements OnInit {
 
   addMove = (elt) => {
     if (elt.whiteTurn && !this.firstMove) this.addMoveNumber(elt);
-    this.elements.push({
-      ...elt,
-      text: elt.moveFan,
-    });
+    this.elements.push(elt);
     this.firstMove = false;
     this.changeDetector.detectChanges();
   }
