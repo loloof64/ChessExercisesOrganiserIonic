@@ -15,7 +15,6 @@ export class Loloof64ChesshistoryComponent implements OnInit {
 
   firstMove = false;
   elements = [];
-  selectedElementIndex = undefined;
 
   constructor(private changeDetector: ChangeDetectorRef,) { }
 
@@ -39,7 +38,6 @@ export class Loloof64ChesshistoryComponent implements OnInit {
   }
 
   clear = () => {
-    this.selectedElementIndex = undefined;
     this.elements = [];
     this.firstMove = true;
   }

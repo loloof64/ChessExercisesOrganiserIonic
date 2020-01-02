@@ -1,11 +1,16 @@
+.history_wrapper {
+    overflow: scroll;
+    background-color: beige;
+}
+
 .history_main {
     display: flex;
     flex-wrap: wrap;
-    overflow: scroll;
-    background-color: beige;
+    align-items: flex-start;
 }
 
 .moveEntry {
     font-size: 24px;
     margin: 0 10px;
+    max-height: 30px;
 }

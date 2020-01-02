@@ -1,10 +1,11 @@
-<div class="history_main" 
+<div class="history_wrapper" 
     [style.width.px]="width" [style.height.px]="height"
 >
-    <span 
-        *ngFor="let singleElement of elements" 
-        class="moveEntry"
-        (click)="sendRequestSetBoardMove(singleElement)"
-        [style.backgroundColor]="index === selectedElementIndex ? 'maroon' : 'beige'"
-    >{{singleElement.text}}</span>
+    <div class="history_main">
+        <span 
+            *ngFor="let singleElement of elements" 
+            class="moveEntry"
+            (click)="sendRequestSetBoardMove(singleElement)"
+        >{{singleElement.text}}</span>
+    </div>
 </div>
