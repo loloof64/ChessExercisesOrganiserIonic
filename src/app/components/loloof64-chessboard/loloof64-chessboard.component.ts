@@ -9,13 +9,13 @@ import { Loloof64ChessEngineCommunicationService } from '../../services/loloof64
 import { Loloof64ChessPromotionPage } from '../../pages/loloof64-chess-promotion/loloof64-chess-promotion.page';
 import { PlayerType } from './PlayerType';
 
-export interface ChessMove {
+interface ChessMove {
   from: ChessCell;
   to: ChessCell;
 }
 
-interface MoveData {
-  moveSan: string;
+export interface MoveData {
+  moveFan: string;
   whiteTurn: boolean;
   moveNumber: number;
   fen: string;
@@ -43,6 +43,7 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
   @Output() public gameFinished: EventEmitter<void> = new EventEmitter<void>();
   @Output() public moveProduced: EventEmitter<MoveData> = new EventEmitter<MoveData>();
   @Output() public gameStarted: EventEmitter<GameStartedData> = new EventEmitter<GameStartedData>();
+  @Output() public fenRequestAccepted: EventEmitter<MoveData> = new EventEmitter<MoveData>();
 
   @ViewChild('root', {static: true}) root: ElementRef;
   @ViewChild('click_zone', {static: true}) clickZone: ElementRef;
@@ -177,16 +178,13 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
     return result;
   }
 
-  requestFen = (fen) => {
+  requestPosition = (moveData) => {
     if (this.gameInProgress) return;
-    this.chessService.setPosition(fen);
+    this.chessService.setPosition(moveData.fen);
     this.piecesValues = this.piecesValuesFromPosition();
-  }
-
-  requestLastMove = (lastMove) => {
-    if (this.gameInProgress) return;
-    this.lastMove = lastMove;
+    this.lastMove = moveData.lastMove;
     this.updateLastMoveArrow();
+    this.fenRequestAccepted.emit(moveData);
   }
 
   getFile = (col: number) => {
@@ -297,9 +295,11 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
     this.dndHoveringCell = null;
 
     if (moveResult) {
+      const moveSan = moveResult.san;
+      const whiteTurn = moveResult.color === 'w';
       this.moveProduced.emit({
-        moveSan: moveResult.san, 
-        whiteTurn: moveResult.color === 'w', 
+        moveFan: this.convertSanToFan({moveSan, whiteTurn}), 
+        whiteTurn: whiteTurn, 
         moveNumber: this.chessService.moveNumber(),
         fen: this.chessService.fen(),
         lastMove: this.lastMove,
@@ -391,9 +391,11 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
     this.dndHoveringCell = null;
 
     if (moveResult) {
+      const moveSan = moveResult.san;
+      const whiteTurn = moveResult.color === 'w';
       this.moveProduced.emit({
-        moveSan: moveResult.san, 
-        whiteTurn: moveResult.color === 'w', 
+        moveFan: this.convertSanToFan({moveSan, whiteTurn}), 
+        whiteTurn: whiteTurn, 
         moveNumber: this.chessService.moveNumber(),
         fen: this.chessService.fen(),
         lastMove: this.lastMove,
@@ -692,6 +694,16 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
     return this.getPieceRawPath(pieceValue);
   }
 
+  private convertSanToFan({moveSan, whiteTurn}) {
+    moveSan = moveSan.replace(/K/g, whiteTurn ? '\u2654' : '\u265A').normalize("NFKC");
+    moveSan = moveSan.replace(/Q/g, whiteTurn ? '\u2655' : '\u265B').normalize("NFKC");
+    moveSan = moveSan.replace(/R/g, whiteTurn ? '\u2656' : '\u265C').normalize("NFKC");
+    moveSan = moveSan.replace(/B/g, whiteTurn ? '\u2657' : '\u265D').normalize("NFKC");
+    moveSan = moveSan.replace(/N/g, whiteTurn ? '\u2658' : '\u265E').normalize("NFKC");
+
+    return moveSan;
+  }
+
   private commitHumanMove = async () => {
     this.piecesValues = this.piecesValuesFromPosition();
     this.checkAndUpdateGameFinishedStatus();
@@ -753,9 +765,11 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
     this.finishComputerMove();
 
     if (moveResult) {
+      const moveSan = moveResult.san;
+      const whiteTurn = moveResult.color === 'w';
       this.moveProduced.emit({
-        moveSan: moveResult.san, 
-        whiteTurn: moveResult.color === 'w', 
+        moveFan: this.convertSanToFan({moveSan, whiteTurn}), 
+        whiteTurn: whiteTurn, 
         moveNumber: this.chessService.moveNumber(),
         fen: this.chessService.fen(),
         lastMove: this.lastMove,
@@ -783,9 +797,11 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
     this.finishComputerMove();
 
     if (moveResult) {
+      const moveSan = moveResult.san;
+      const whiteTurn = moveResult.color === 'w';
       this.moveProduced.emit({
-        moveSan: moveResult.san, 
-        whiteTurn: moveResult.color === 'w', 
+        moveFan:this.convertSanToFan({moveSan, whiteTurn}), 
+        whiteTurn: whiteTurn, 
         moveNumber: this.chessService.moveNumber(),
         fen: this.chessService.fen(),
         lastMove: this.lastMove,

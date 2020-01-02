@@ -2,8 +2,9 @@
     [style.width.px]="width" [style.height.px]="height"
 >
     <span 
-    *ngFor="let singleElement of elements" 
-    class="moveEntry"
-    (click)="sendRequestSetBoardMove(singleElement)"
+        *ngFor="let singleElement of elements" 
+        class="moveEntry"
+        (click)="sendRequestSetBoardMove(singleElement)"
+        [style.backgroundColor]="index === selectedElementIndex ? 'maroon' : 'beige'"
     >{{singleElement.text}}</span>
 </div>

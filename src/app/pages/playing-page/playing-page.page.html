@@ -32,8 +32,7 @@
     <loloof64-chesshistory
       [width]="boardSize"
       [height]="boardSize"
-      (requestBoardFen)="sendRequestBoardFen($event)"
-      (requestBoardLastMove)="sendRequestBoardLastMove($event)"
+      (requestBoardPosition)="sendRequestBoardPosition($event)"
       #chessHistory
     >
     </loloof64-chesshistory

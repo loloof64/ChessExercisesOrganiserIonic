@@ -72,12 +72,8 @@ export class PlayingPage implements OnInit, DoCheck, AfterViewInit {
     }, 2500);
   }
 
-  sendRequestBoardFen = (fen) => {
-    this.chessBoard.requestFen(fen);
-  }
-
-  sendRequestBoardLastMove = (lastMove) => {
-    this.chessBoard.requestLastMove(lastMove);
+  sendRequestBoardPosition = (moveData) => {
+    this.chessBoard.requestPosition(moveData);
   }
 
   toggleHistoryVisibility() {
@@ -165,19 +161,8 @@ export class PlayingPage implements OnInit, DoCheck, AfterViewInit {
     this.chessHistory.addMoveNumber({whiteTurn, moveNumber});
   }
 
-  addMoveToHistory({moveSan, whiteTurn, moveNumber, fen, lastMove}) {
-    const moveFan = this.convertSanToFan({moveSan, whiteTurn});
-    this.chessHistory.addMove({moveFan, whiteTurn, moveNumber, fen, lastMove});
-  }
-
-  convertSanToFan({moveSan, whiteTurn}) {
-    moveSan = moveSan.replace(/K/g, whiteTurn ? '\u2654' : '\u265A').normalize("NFKC");
-    moveSan = moveSan.replace(/Q/g, whiteTurn ? '\u2655' : '\u265B').normalize("NFKC");
-    moveSan = moveSan.replace(/R/g, whiteTurn ? '\u2656' : '\u265C').normalize("NFKC");
-    moveSan = moveSan.replace(/B/g, whiteTurn ? '\u2657' : '\u265D').normalize("NFKC");
-    moveSan = moveSan.replace(/N/g, whiteTurn ? '\u2658' : '\u265E').normalize("NFKC");
-
-    return moveSan;
+  addMoveToHistory(elt) {
+    this.chessHistory.addMove(elt);
   }
 
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
-import { ChessMove } from '../loloof64-chessboard/loloof64-chessboard.component';
+import { MoveData } from '../loloof64-chessboard/loloof64-chessboard.component';
 
 @Component({
   selector: 'loloof64-chesshistory',
@@ -11,45 +11,42 @@ export class Loloof64ChesshistoryComponent implements OnInit {
   @Input() height = 200.0;
   @Input() width = 200.0;
 
-  @Output() public requestBoardFen: EventEmitter<string> = new EventEmitter<string>();
-  @Output() public requestBoardLastMove: EventEmitter<ChessMove> = new EventEmitter<ChessMove>();
+  @Output() public requestBoardPosition: EventEmitter<MoveData> = new EventEmitter<MoveData>();
 
   firstMove = false;
   elements = [];
+  selectedElementIndex = undefined;
 
   constructor(private changeDetector: ChangeDetectorRef,) { }
 
   ngOnInit() {}
 
-  addMove = ({moveFan, whiteTurn, moveNumber, fen, lastMove}) => {
-    if (whiteTurn && !this.firstMove) this.addMoveNumber({whiteTurn, moveNumber});
+  addMove = (elt) => {
+    if (elt.whiteTurn && !this.firstMove) this.addMoveNumber(elt);
     this.elements.push({
-      text: moveFan,
-      fen,
-      lastMove,
+      ...elt,
+      text: elt.moveFan,
     });
     this.firstMove = false;
     this.changeDetector.detectChanges();
   }
 
-  addMoveNumber = ({whiteTurn, moveNumber}) => {
-    const text = `${moveNumber}.${whiteTurn ? '' : '..'}`;
+  addMoveNumber = (elt) => {
+    const text = `${elt.moveNumber}.${elt.whiteTurn ? '' : '..'}`;
     this.elements.push({
       text
     });
   }
 
   clear = () => {
+    this.selectedElementIndex = undefined;
     this.elements = [];
     this.firstMove = true;
   }
 
   sendRequestSetBoardMove = (elt) => {
-    if (elt.fen) {
-      this.requestBoardFen.emit(elt.fen);
-    }
-    if (elt.lastMove) {
-      this.requestBoardLastMove.emit(elt.lastMove);
+    if (elt.fen && elt.lastMove) {
+      this.requestBoardPosition.emit(elt);
     }
   }
 
