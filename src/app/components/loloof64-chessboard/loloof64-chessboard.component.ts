@@ -491,30 +491,39 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
   }
 
   private clearLastMoveArrow = () => {
-    this.renderer.setStyle(this.lastMoveBaseLine.nativeElement, 'width', '0');
-    this.renderer.setStyle(this.lastMoveBaseLine.nativeElement, 'height', '0');
-    this.renderer.setStyle(this.lastMoveBaseLine.nativeElement, 'left', '0');
-    this.renderer.setStyle(this.lastMoveBaseLine.nativeElement, 'top', '0');
+    if (this.lastMoveBaseLine) {
+      this.renderer.setStyle(this.lastMoveBaseLine.nativeElement, 'width', '0');
+      this.renderer.setStyle(this.lastMoveBaseLine.nativeElement, 'height', '0');
+      this.renderer.setStyle(this.lastMoveBaseLine.nativeElement, 'left', '0');
+      this.renderer.setStyle(this.lastMoveBaseLine.nativeElement, 'top', '0');
+    }
     
-    this.renderer.setStyle(this.lastMoveArrow1.nativeElement, 'width', '0');
-    this.renderer.setStyle(this.lastMoveArrow1.nativeElement, 'height', '0');
-    this.renderer.setStyle(this.lastMoveArrow1.nativeElement, 'left', '0');
-    this.renderer.setStyle(this.lastMoveArrow1.nativeElement, 'top', '0');
+    if (this.lastMoveArrow1) {
+      this.renderer.setStyle(this.lastMoveArrow1.nativeElement, 'width', '0');
+      this.renderer.setStyle(this.lastMoveArrow1.nativeElement, 'height', '0');
+      this.renderer.setStyle(this.lastMoveArrow1.nativeElement, 'left', '0');
+      this.renderer.setStyle(this.lastMoveArrow1.nativeElement, 'top', '0');
+    }
     
-    this.renderer.setStyle(this.lastMoveArrow2.nativeElement, 'width', '0');
-    this.renderer.setStyle(this.lastMoveArrow2.nativeElement, 'height', '0');
-    this.renderer.setStyle(this.lastMoveArrow2.nativeElement, 'left', '0');
-    this.renderer.setStyle(this.lastMoveArrow2.nativeElement, 'top', '0');
+    if (this.lastMoveArrow2) {
+      this.renderer.setStyle(this.lastMoveArrow2.nativeElement, 'width', '0');
+      this.renderer.setStyle(this.lastMoveArrow2.nativeElement, 'height', '0');
+      this.renderer.setStyle(this.lastMoveArrow2.nativeElement, 'left', '0');
+      this.renderer.setStyle(this.lastMoveArrow2.nativeElement, 'top', '0');
+    }
 
-    this.renderer.setStyle(this.lastMovePoint.nativeElement, 'width', '0');
-    this.renderer.setStyle(this.lastMovePoint.nativeElement, 'height', '0');
-    this.renderer.setStyle(this.lastMovePoint.nativeElement, 'left', '0');
-    this.renderer.setStyle(this.lastMovePoint.nativeElement, 'top', '0');
+    if (this.lastMovePoint) {
+      this.renderer.setStyle(this.lastMovePoint.nativeElement, 'width', '0');
+      this.renderer.setStyle(this.lastMovePoint.nativeElement, 'height', '0');
+      this.renderer.setStyle(this.lastMovePoint.nativeElement, 'left', '0');
+      this.renderer.setStyle(this.lastMovePoint.nativeElement, 'top', '0');
+    }
   }
 
   private updateLastMoveArrow = () => {
 
     if ([null, undefined].includes(this.lastMove)) {
+      this.clearLastMoveArrow();
       return;
     }
 

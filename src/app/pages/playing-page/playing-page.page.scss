@@ -24,3 +24,10 @@ loloof64-chesshistory {
 .actionButton {
     color: white;
 }
+
+.historyControls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 6%;
+}

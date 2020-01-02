@@ -29,6 +29,20 @@
       color="primary"
       *ngIf="boardBusy"
     ></ion-spinner>
+    <div class="historyControls">
+      <ion-button (click)="gotoStartHistory()">
+        <fa-icon [icon]="faStepBackward" size="2x"></fa-icon>
+      </ion-button>
+      <ion-button (click)="gotoPreviousHistory()">
+        <fa-icon [icon]="faBackward" size="2x"></fa-icon>
+      </ion-button>
+      <ion-button (click)="gotoNextHistory()">
+        <fa-icon [icon]="faForward" size="2x"></fa-icon>
+      </ion-button>
+      <ion-button (click)="gotoEndHistory()">
+        <fa-icon [icon]="faStepForward" size="2x"></fa-icon>
+      </ion-button>
+    </div>
     <loloof64-chesshistory
       [width]="boardSize"
       [height]="boardSize"

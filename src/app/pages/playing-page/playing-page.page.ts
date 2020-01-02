@@ -12,6 +12,10 @@ import {
   faStop,
   faChessBoard,
   faHistory,
+  faStepBackward,
+  faStepForward,
+  faBackward,
+  faForward,
 } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -33,6 +37,10 @@ export class PlayingPage implements OnInit, DoCheck, AfterViewInit {
   faStop = faStop;
   faChessBoard = faChessBoard;
   faHistory = faHistory;
+  faBackward = faBackward;
+  faStepBackward = faStepBackward;
+  faStepForward = faStepForward;
+  faForward = faForward;
 
   @ViewChild('chessBoard', {static: true}) chessBoard: Loloof64ChessboardComponent;
   @ViewChild('chessHistory', {static: true}) chessHistory: Loloof64ChesshistoryComponent;
@@ -141,6 +149,7 @@ export class PlayingPage implements OnInit, DoCheck, AfterViewInit {
     const blackPlayer = whiteTurn ? PlayerType.Computer : PlayerType.Human;
     this.reversed = !whiteTurn;
     this.chessBoard.startNewGame(whitePlayer, blackPlayer, this.currentFen);
+    this.chessHistory.setStartFen(this.currentFen);
     this.boardBusy = false;
     this.gameInProgress = true;
     this.historyActive = false;
@@ -169,6 +178,22 @@ export class PlayingPage implements OnInit, DoCheck, AfterViewInit {
   setSelectedElementInHistory(elt) {
     this.chessHistory.setSelectedElement(elt);
     this.historyActive = false;
+  }
+
+  gotoStartHistory() {
+    this.chessHistory.gotoStart();
+  }
+
+  gotoPreviousHistory() {
+    this.chessHistory.gotoPrevious();
+  }
+
+  gotoNextHistory() {
+    this.chessHistory.gotoNext();
+  }
+
+  gotoEndHistory() {
+    this.chessHistory.gotoEnd();
   }
 
 }
