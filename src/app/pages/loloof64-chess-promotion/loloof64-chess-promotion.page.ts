@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
+import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-loloof64-chess-promotion',
   templateUrl: './loloof64-chess-promotion.page.html',
@@ -10,9 +12,11 @@ export class Loloof64ChessPromotionPage implements OnInit {
   @Input() callback: (value: string) => void;
   @Input() whiteTurn: boolean;
 
-  message = 'Please, select the promotion piece';
+  message: string;
 
-  constructor() { }
+  constructor(private translate: TranslateService) { 
+    this.message = this.translate.instant('promotion_page.message');
+  }
 
   ngOnInit() {
   }

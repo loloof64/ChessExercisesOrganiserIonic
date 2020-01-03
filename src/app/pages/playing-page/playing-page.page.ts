@@ -6,6 +6,8 @@ import { Loloof64ChesshistoryComponent } from '../../components/loloof64-chesshi
 
 import { ActivatedRoute } from '@angular/router';
 
+import { TranslateService } from '@ngx-translate/core';
+
 import {
   faArrowsAltV,
   faPlay,
@@ -32,6 +34,8 @@ export class PlayingPage implements OnInit, DoCheck, AfterViewInit {
   gameInProgress = false;
   historyActive = false;
 
+  title: string;
+
   faArrowsAltV = faArrowsAltV;
   faPlay = faPlay;
   faStop = faStop;
@@ -49,7 +53,10 @@ export class PlayingPage implements OnInit, DoCheck, AfterViewInit {
     private platform: Platform, 
     private route: ActivatedRoute,
     private alertController: AlertController,
-  ) { }
+    private translate: TranslateService,
+  ) {
+    this.title = this.translate.instant('playing_page.title');
+   }
 
   private adjustBoardSize = () => {
     this.boardSize = this.platform.isPortrait() ?

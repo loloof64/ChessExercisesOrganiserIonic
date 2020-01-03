@@ -1,0 +1,23 @@
+{
+    "tab1": {
+        "sample_exercises": "Exemples",
+        "no_fen_tag_in_exercise": "Pas de tag FEN dans le PGN !",
+        "sample_1": "Finale RPvR",
+        "sample_2": "Finale RvRTT"
+    },
+    "playing_page": {
+        "title": "Page de jeu"
+    },
+    "promotion_page": {
+        "message": "Veuillez choisir la pièce de promotion"
+    },
+    "board": {
+        "white_side": "Les Blancs",
+        "black_side": "Les Noirs",
+        "checkmates": " font échec et mat",
+        "stalemate": "Pat",
+        "repetitions": "Nulle par triple répétitions",
+        "missing_material": "Nulle par manque de matériel",
+        "fifty_moves_draw": "Nulle par la règle des 50 coups"
+    }
+}

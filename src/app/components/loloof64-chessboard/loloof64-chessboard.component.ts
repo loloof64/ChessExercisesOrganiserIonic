@@ -9,6 +9,8 @@ import { Loloof64ChessEngineCommunicationService } from '../../services/loloof64
 import { Loloof64ChessPromotionPage } from '../../pages/loloof64-chess-promotion/loloof64-chess-promotion.page';
 import { PlayerType } from './PlayerType';
 
+import { TranslateService } from '@ngx-translate/core';
+
 interface ChessMove {
   from: ChessCell;
   to: ChessCell;
@@ -84,6 +86,7 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
     private modalController: ModalController,
     private toastController: ToastController,
     private engineCommunicationLayer: Loloof64ChessEngineCommunicationService,
+    private translate: TranslateService,
   ) { }
 
   ngOnInit() {
@@ -748,16 +751,16 @@ export class Loloof64ChessboardComponent implements OnInit, OnChanges, OnDestroy
     let gameFinishedMessage;
     if (this.chessService.isCheckmate()) {
       const playerSide = this.chessService.isWhiteTurn() ?
-        'Blacks' : 'Whites';
-      gameFinishedMessage = `${playerSide} checkmates`;
+        this.translate.instant('board.black_side') : this.translate.instant('board.white_side');
+      gameFinishedMessage = `${playerSide} ${this.translate.instant('board.checkmates')}`;
     } else if (this.chessService.isStalemate()) {
-      gameFinishedMessage = 'Stalemate';
+      gameFinishedMessage = this.translate.instant('board.stalemate');
     } else if (this.chessService.isThreeFoldRepetition()) {
-      gameFinishedMessage = 'Draw by three fold repetition';
+      gameFinishedMessage = this.translate.instant('board.repetitions');
     } else if (this.chessService.isDrawByMissingMaterial()) {
-      gameFinishedMessage = 'Draw by missing material';
+      gameFinishedMessage = this.translate.instant('board.missing_material');
     } else if (this.chessService.isDrawByFiftyMovesRule()) {
-      gameFinishedMessage = 'Draw by fifty moves rule';
+      gameFinishedMessage = this.translate.instant('fifty_moves_draw');
     }
 
     if (gameFinishedMessage !== undefined) {

@@ -1,0 +1,23 @@
+{
+    "tab1": {
+        "sample_exercises": "Samples",
+        "no_fen_tag_in_exercise": "No FEN tag in the pgn !",
+        "sample_1": "Endgame KPvK",
+        "sample_2": "Endgame KvKRR"
+    },
+    "playing_page": {
+        "title": "Playing page"
+    },
+    "promotion_page": {
+        "message": "Please, select the promotion piece"
+    },
+    "board": {
+        "white_side": "Whites",
+        "black_side": "Blacks",
+        "checkmates": " checkmate",
+        "stalemate": "Stalemate",
+        "repetitions": "Draw by three fold repetition",
+        "missing_material": "Draw by missing material",
+        "fifty_moves_draw": "Draw by fifty moves rule"
+    }
+}
