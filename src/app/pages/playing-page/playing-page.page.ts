@@ -1,5 +1,5 @@
 import { Component, ViewChild, OnInit, DoCheck, AfterViewInit } from '@angular/core';
-import { Platform, AlertController } from '@ionic/angular';
+import { Platform, AlertController, NavController } from '@ionic/angular';
 import { PlayerType } from '../../components/loloof64-chessboard/PlayerType';
 import { Loloof64ChessboardComponent } from '../../components/loloof64-chessboard/loloof64-chessboard.component';
 import { Loloof64ChesshistoryComponent } from '../../components/loloof64-chesshistory/loloof64-chesshistory.component';
@@ -54,6 +54,7 @@ export class PlayingPage implements OnInit, DoCheck, AfterViewInit {
     private route: ActivatedRoute,
     private alertController: AlertController,
     private translate: TranslateService,
+    private navigation: NavController,
   ) {
     this.title = this.translate.instant('playing_page.title');
    }
@@ -62,6 +63,10 @@ export class PlayingPage implements OnInit, DoCheck, AfterViewInit {
     this.boardSize = this.platform.isPortrait() ?
       this.platform.width() :
       this.platform.height() - 56;
+  }
+
+  leavePage() {
+    this.navigation.back();
   }
 
   ngOnInit() {

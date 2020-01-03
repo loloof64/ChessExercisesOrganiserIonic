@@ -1,6 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
+      <ion-icon name="arrow-back" (click)="leavePage()"></ion-icon>
       {{title}}
       <ion-button (click)="reverseBoard()">
         <fa-icon [icon]="faArrowsAltV" size="2x"></fa-icon>
