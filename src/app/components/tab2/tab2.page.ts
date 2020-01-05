@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-tab2',
@@ -7,6 +8,10 @@ import { Component } from '@angular/core';
 })
 export class Tab2Page {
 
-  constructor() {}
+  title: string;
+
+  constructor(private translate: TranslateService) {
+    this.title = this.translate.instant('tab2.custom_exercises');
+  }
 
 }

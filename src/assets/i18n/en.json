@@ -5,6 +5,9 @@
         "sample_1": "Endgame KPvK",
         "sample_2": "Endgame KvKRR"
     },
+    "tab2": {
+        "custom_exercises": "Customs"
+    },
     "playing_page": {
         "title": "Playing page"
     },
