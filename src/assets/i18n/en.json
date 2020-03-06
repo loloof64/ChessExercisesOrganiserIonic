@@ -22,5 +22,10 @@
         "repetitions": "Draw by three fold repetition",
         "missing_material": "Draw by missing material",
         "fifty_moves_draw": "Draw by fifty moves rule"
+    },
+    "cloud": {
+        "misc_error": "Misc. error",
+        "user_refusal_error": "Aborded since you refused",
+        "connection_error": "Connection error"
     }
 }

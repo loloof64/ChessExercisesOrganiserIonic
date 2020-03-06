@@ -22,5 +22,10 @@
         "repetitions": "Nulle par triple répétitions",
         "missing_material": "Nulle par manque de matériel",
         "fifty_moves_draw": "Nulle par la règle des 50 coups"
+    },
+    "cloud": {
+        "misc_error": "Erreur diverse",
+        "user_refusal_error": "Abandon car vous avez refusé",
+        "connection_error": "Erreur de connexion"
     }
 }

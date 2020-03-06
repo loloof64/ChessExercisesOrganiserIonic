@@ -1,1 +1,28 @@
-{"tab1":{"sample_exercises":"Las muestras","no_fen_tag_in_exercise":"No hay FEN etiqueta en el pgn !","sample_1":"Endgame KPvK","sample_2":"Endgame KvKRR"},"playing_page":{"title":"Reproducción de la página"},"promotion_page":{"message":"Por favor, seleccione la promoción de la pieza"},"board":{"white_side":"Los blancos","black_side":"Los negros","checkmates":" jaque mate","stalemate":"Punto muerto","repetitions":"Sorteo por tres veces de repetición","missing_material":"Sorteo por falta de material","fifty_moves_draw":"Sorteo de cincuenta mueve la regla"}}
+{
+    "tab1": {
+        "sample_exercises": "Las muestras",
+        "no_fen_tag_in_exercise": "No hay FEN etiqueta en el pgn !",
+        "sample_1": "Endgame KPvK",
+        "sample_2": "Endgame KvKRR"
+    },
+    "playing_page": {
+        "title": "Reproducción de la página"
+    },
+    "promotion_page": {
+        "message": "Por favor, seleccione la promoción de la pieza"
+    },
+    "board": {
+        "white_side": "Los blancos",
+        "black_side": "Los negros",
+        "checkmates": " jaque mate",
+        "stalemate": "Punto muerto",
+        "repetitions": "Sorteo por tres veces de repetición",
+        "missing_material": "Sorteo por falta de material",
+        "fifty_moves_draw": "Sorteo de cincuenta mueve la regla"
+    },
+    "cloud": {
+        "misc_error": "Errores diversas",
+        "user_refusal_error": "Renuncia porque le pide",
+        "connection_error": "Errore de conexion"
+    }
+}

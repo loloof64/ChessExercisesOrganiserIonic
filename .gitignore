@@ -29,3 +29,12 @@ npm-debug.log*
 /platforms
 /plugins
 /www
+
+android/.project
+android/.settings/
+android/app/.classpath
+android/app/.project
+android/app/.settings/
+
+
+src/app/services/cloud/configurations.ts
